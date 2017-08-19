@@ -2,10 +2,12 @@ package adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,13 +20,23 @@ import models.Recipe;
 
 public class RecipeGridAdapter extends RecyclerView.Adapter<RecipeGridAdapter.RecyclerViewHolder>
 {
-    ArrayList<Recipe> mRecipeList;
-    Context mContext;
-    //RecipeItemClickListener recipeItemClickListener;
+    private ArrayList<Recipe> mRecipeList;
+    private Context mContext;
+    private RecipeGridAdapterClickHandler mClickHandler;
+
+    public interface RecipeGridAdapterClickHandler
+    {
+        void onClick(Recipe currentRecipe);
+    }
 
     public RecipeGridAdapter()
     {
 
+    }
+
+    public RecipeGridAdapter(RecipeGridAdapterClickHandler clickHandler)
+    {
+        mClickHandler = clickHandler;
     }
 
     @Override
@@ -44,7 +56,9 @@ public class RecipeGridAdapter extends RecyclerView.Adapter<RecipeGridAdapter.Re
     public void onBindViewHolder(RecipeGridAdapter.RecyclerViewHolder holder, int position)
     {
         holder.mText.setText(mRecipeList.get(position).getName());
+        Log.d("RecipeGridAdapter", "does it get here?");
 
+        Log.d("RecipeGridAdapter", mRecipeList.get(position).getName());
 
 
     }
@@ -71,11 +85,17 @@ public class RecipeGridAdapter extends RecyclerView.Adapter<RecipeGridAdapter.Re
             super(itemView);
 
             mText = itemView.findViewById(R.id.recipe_name);
+
+            itemView.setOnClickListener(this);
+
         }
 
         @Override
-        public void onClick(View view) {
-
+        public void onClick(View view)
+        {
+            Log.d("RecipeGridAdapter", "does it get here?");
+            int adapterPosition = getAdapterPosition();
+            mClickHandler.onClick(mRecipeList.get(adapterPosition));
         }
     }
 }

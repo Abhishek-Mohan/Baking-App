@@ -44,7 +44,7 @@ public class RecipeFragment extends Fragment
 
         mRecyclerView = rootView.findViewById(R.id.recyler_recipe);
 
-        final RecipeGridAdapter recipeGridAdapter = new RecipeGridAdapter();
+        final RecipeGridAdapter recipeGridAdapter = new RecipeGridAdapter((MainActivity)getActivity());
 
         mRecyclerView.setAdapter(recipeGridAdapter);
 
@@ -76,4 +76,5 @@ public class RecipeFragment extends Fragment
 
         return rootView;
     }
+
 }
