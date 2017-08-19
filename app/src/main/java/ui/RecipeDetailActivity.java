@@ -2,13 +2,19 @@ package ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import adapters.IngredientsAdapter;
 import fastrackm.nanodegree.udacity.abhis.yumrecipes.R;
+import models.Ingredients;
 import models.Recipe;
 
 /**
@@ -19,6 +25,10 @@ public class RecipeDetailActivity extends AppCompatActivity
 {
     private String TAG = RecipeDetailActivity.class.getName();
     //private boolean isTwoPane = false;
+
+    RecyclerView mIngRecyclerView;
+    LinearLayoutManager mIngLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +47,17 @@ public class RecipeDetailActivity extends AppCompatActivity
 
         Toast.makeText(this, currentRecipe.getName(), Toast.LENGTH_SHORT).show();
         //Log.d(TAG, String.valueOf(currentRecipe.getId()));
+
+        ArrayList<Ingredients> list = currentRecipe.getIngredients();
+
+        mIngRecyclerView = findViewById(R.id.rvIngredients);
+
+        IngredientsAdapter ingredientsAdapter = new IngredientsAdapter(list);
+        mIngRecyclerView.setAdapter(ingredientsAdapter);
+
+        mIngLayoutManager = new LinearLayoutManager(this);
+        mIngRecyclerView.setLayoutManager(mIngLayoutManager);
+
 
     }
 
