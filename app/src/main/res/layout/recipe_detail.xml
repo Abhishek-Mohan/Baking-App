@@ -11,20 +11,22 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvIngredients"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_below="@+id/include"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-  <!--  <FrameLayout
+    <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/rvIngredients"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-       &lt;!&ndash; <include layout="@layout/recipe_detail_list" />&ndash;&gt;
+       <!-- <include layout="@layout/recipe_detail_list" />-->
 
-    </FrameLayout>-->
+    </FrameLayout>
 
 
 </RelativeLayout>
