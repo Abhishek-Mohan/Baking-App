@@ -2,6 +2,7 @@ package adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,8 @@ import models.Ingredients;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder>
 {
-    ArrayList<Ingredients> currentIngredients;
+    private String TAG = IngredientsAdapter.class.getName();
+    private ArrayList<Ingredients> currentIngredients;
 
     public IngredientsAdapter()
     {
@@ -46,13 +48,25 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public void onBindViewHolder(IngredientsAdapter.ViewHolder holder, int position)
     {
-        //holder.mQuantity
+        Ingredients currentIng = currentIngredients.get(position);
+        double quantity = currentIng.getQuantity();
+        String measure = currentIng.getMeasure();
+        String ingredient = currentIng.getIngredient();
+
+        Log.d(TAG, String.valueOf(quantity));
+        Log.d(TAG, measure);
+        Log.d(TAG, ingredient);
+
+        holder.mQuantity.setText(Double.toString(quantity));
+        holder.mMeasure.setText(measure);
+        holder.mIngredients.setText(ingredient);
 
     }
 
     @Override
-    public int getItemCount() {
-        return 0;
+    public int getItemCount()
+    {
+        return currentIngredients != null ? currentIngredients.size():0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder
