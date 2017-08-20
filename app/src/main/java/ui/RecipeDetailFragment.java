@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import adapters.RecipeStepsAdapter;
 import fastrackm.nanodegree.udacity.abhis.yumrecipes.R;
@@ -30,9 +31,12 @@ public class RecipeDetailFragment extends Fragment
 {
     private String TAG = RecipeDetailFragment.class.getName();
     ArrayList<Steps> recipeSteps;
+    Recipe currentRecipe;
     String recipeName;
 
     RecyclerView mRecyclerView;
+    LinearLayoutManager mStepLayoutManager;
+
 
 
     public RecipeDetailFragment()
@@ -43,22 +47,22 @@ public class RecipeDetailFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        recipeSteps = new ArrayList<>();
+        //recipeSteps = new ArrayList<>();
 
-        recipeSteps = getArguments().getParcelableArrayList("ingSteps");
+        currentRecipe = getArguments().getParcelable("recipe");
+        recipeSteps = currentRecipe.getSteps();
 
-        Log.d(TAG, recipeSteps.get(0).getShortDescription());
+        //Log.d(TAG, recipeSteps.get(0).getShortDescription());
 
         View rootView = inflater.inflate(R.layout.recipe_detail_fragment_list, container, false);
-/*
+
+
         mRecyclerView = rootView.findViewById(R.id.recipe_steps_recycler);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
         RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter((RecipeDetailActivity)getActivity(), recipeSteps, getContext());
-        mRecyclerView.setAdapter(mRecipeStepAdapter);*/
-        //mRecipeStepAdapter.setMasterRecipeData(recipeSteps, getContext());
+        mRecyclerView.setAdapter(mRecipeStepAdapter);
 
+        mStepLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mStepLayoutManager);
 
         return rootView;
 

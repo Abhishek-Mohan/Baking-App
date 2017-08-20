@@ -78,7 +78,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         return listSteps != null ? listSteps.size():0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         TextView mShortDescription;
 
@@ -89,5 +89,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
         }
 
+        @Override
+        public void onClick(View view) {
+
+        }
     }
 }

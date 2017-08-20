@@ -50,20 +50,20 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_detail);
 
-      /*  Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setHomeButtonEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         Bundle currentRecipeBundle = getIntent().getExtras();
 
         Recipe currentRecipe = currentRecipeBundle.getParcelable("RecipeItem");
-        //getSupportActionBar().setTitle(currentRecipe.getName());
+        getSupportActionBar().setTitle(currentRecipe.getName());
 
         //Toast.makeText(this, currentRecipe.getName(), Toast.LENGTH_SHORT).show();
         //Log.d(TAG, String.valueOf(currentRecipe.getId()));
 
-     /*   ArrayList<Ingredients> list = currentRecipe.getIngredients();
+        ArrayList<Ingredients> list = currentRecipe.getIngredients();
 
         mIngRecyclerView = findViewById(R.id.rvIngredients);
 
@@ -71,21 +71,21 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         mIngRecyclerView.setAdapter(ingredientsAdapter);
 
         mIngLayoutManager = new LinearLayoutManager(this);
-        mIngRecyclerView.setLayoutManager(mIngLayoutManager);*/
+        mIngRecyclerView.setLayoutManager(mIngLayoutManager);
 
-        ArrayList<Steps> listSteps = currentRecipe.getSteps();
-        Toast.makeText(this, listSteps.get(0).getShortDescription(), Toast.LENGTH_SHORT).show();
+      //ArrayList<Steps> listSteps = currentRecipe.getSteps();
+        /*Toast.makeText(this, listSteps.get(0).getShortDescription(), Toast.LENGTH_SHORT).show();
 
         mRecyclerView = findViewById(R.id.recipe_steps_recycler);
-        RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter(listSteps, this);
+        RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter((RecipeDetailActivity)getActivty(), listSteps, this);
         mRecyclerView.setAdapter(mRecipeStepAdapter);
 
         mStepLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mStepLayoutManager);
+        mRecyclerView.setLayoutManager(mStepLayoutManager);*/
 
 
 
-      /*  Bundle selectedRecipeBundle = new Bundle();
+        Bundle selectedRecipeBundle = new Bundle();
         selectedRecipeBundle.putParcelable("recipe", currentRecipe);
 
         RecipeDetailFragment fragment = new RecipeDetailFragment();
@@ -95,7 +95,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
                 .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_DETAIL)
                 .commit();
 
-*/
 
     }
 
