@@ -29,9 +29,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         void onStepClick();
     }
 
-    public RecipeStepsAdapter(StepItemClickListener listener, ArrayList<Steps> steps, Context context)
+    public RecipeStepsAdapter(StepItemClickListener clickListener, ArrayList<Steps> steps, Context context)
     {
-        onClickHandler = listener;
+        onClickHandler = clickListener;
         listSteps = steps;
         mContext = context;
     }
@@ -46,51 +46,48 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     @Override
     public RecipeStepsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        Context context = parent.getContext();
+        Context currrentContext = parent.getContext();
 
         int layoutIdForListItem = R.layout.recipe_detail_step_items;
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(currrentContext);
         View view = inflater.inflate(layoutIdForListItem, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new RecipeStepsAdapter.ViewHolder(view);
 
     }
 
     @Override
     public void onBindViewHolder(RecipeStepsAdapter.ViewHolder holder, int position)
     {
-        holder.shortDescription.setText("hi");
+        //holder.shortDescription.setText("hi");
         //holder.shortDescription.setText(listSteps.get(position).getId() + ". " + listSteps.get(position).getShortDescription());
-        Log.d("RecipeSTepsAdapter", listSteps.get(position).getShortDescription());
+        //Log.d("RecipeSTepsAdapter", listSteps.get(position).getShortDescription());
+
+        Steps currentStep = listSteps.get(position);
+        String shortDescription = currentStep.getShortDescription();
+        Log.d(TAG, shortDescription);
+
+        holder.mShortDescription.setText(shortDescription);
 
     }
 
     @Override
     public int getItemCount()
     {
-        return 0;
+        return listSteps != null ? listSteps.size():0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView shortDescription;
+        TextView mShortDescription;
 
         ViewHolder(View itemView)
         {
             super(itemView);
-            shortDescription = itemView.findViewById(R.id.shortDescription);
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view)
-        {
-            int clickedPosition = getAdapterPosition();
-
+            mShortDescription = itemView.findViewById(R.id.shortDescription);
 
         }
+
     }
 }

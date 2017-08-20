@@ -40,7 +40,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     //private boolean isTwoPane = false;
 
     RecyclerView mIngRecyclerView;
+    RecyclerView mRecyclerView;
     LinearLayoutManager mIngLayoutManager;
+    LinearLayoutManager mStepLayoutManager;
 
 
     @Override
@@ -48,17 +50,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_detail);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+      /*  Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setHomeButtonEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle("Nutella");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);*/
 
         Bundle currentRecipeBundle = getIntent().getExtras();
 
         Recipe currentRecipe = currentRecipeBundle.getParcelable("RecipeItem");
+        //getSupportActionBar().setTitle(currentRecipe.getName());
 
-        Toast.makeText(this, currentRecipe.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, currentRecipe.getName(), Toast.LENGTH_SHORT).show();
         //Log.d(TAG, String.valueOf(currentRecipe.getId()));
 
      /*   ArrayList<Ingredients> list = currentRecipe.getIngredients();
@@ -72,17 +74,28 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         mIngRecyclerView.setLayoutManager(mIngLayoutManager);*/
 
         ArrayList<Steps> listSteps = currentRecipe.getSteps();
-        Bundle selectedRecipeBundle = new Bundle();
-        selectedRecipeBundle.putParcelableArrayList("ingSteps", listSteps);
+        Toast.makeText(this, listSteps.get(0).getShortDescription(), Toast.LENGTH_SHORT).show();
+
+        mRecyclerView = findViewById(R.id.recipe_steps_recycler);
+        RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter(listSteps, this);
+        mRecyclerView.setAdapter(mRecipeStepAdapter);
+
+        mStepLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mStepLayoutManager);
+
+
+
+      /*  Bundle selectedRecipeBundle = new Bundle();
+        selectedRecipeBundle.putParcelable("recipe", currentRecipe);
 
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(selectedRecipeBundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, fragment)
+                .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_DETAIL)
                 .commit();
 
-
+*/
 
     }
 

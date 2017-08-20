@@ -50,13 +50,13 @@ public class RecipeDetailFragment extends Fragment
         Log.d(TAG, recipeSteps.get(0).getShortDescription());
 
         View rootView = inflater.inflate(R.layout.recipe_detail_fragment_list, container, false);
-
+/*
         mRecyclerView = rootView.findViewById(R.id.recipe_steps_recycler);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter((RecipeDetailActivity)getActivity(), recipeSteps, getContext());
-        mRecyclerView.setAdapter(mRecipeStepAdapter);
+        mRecyclerView.setAdapter(mRecipeStepAdapter);*/
         //mRecipeStepAdapter.setMasterRecipeData(recipeSteps, getContext());
 
 
