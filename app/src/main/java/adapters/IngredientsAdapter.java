@@ -53,10 +53,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         String measure = currentIng.getMeasure();
         String ingredient = currentIng.getIngredient();
 
-        Log.d(TAG, String.valueOf(quantity));
+       /* Log.d(TAG, String.valueOf(quantity));
         Log.d(TAG, measure);
         Log.d(TAG, ingredient);
-
+*/
         holder.mQuantity.setText(Double.toString(quantity));
         holder.mMeasure.setText(measure);
         holder.mIngredients.setText(ingredient);

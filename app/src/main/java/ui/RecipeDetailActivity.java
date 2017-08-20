@@ -1,6 +1,7 @@
 package ui;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,17 +14,29 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import adapters.IngredientsAdapter;
+import adapters.RecipeStepsAdapter;
 import fastrackm.nanodegree.udacity.abhis.yumrecipes.R;
 import models.Ingredients;
 import models.Recipe;
+import models.Steps;
 
 /**
  * Created by abhis on 8/17/2017.
  */
 
-public class RecipeDetailActivity extends AppCompatActivity
+public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepsAdapter.StepItemClickListener
 {
     private String TAG = RecipeDetailActivity.class.getName();
+
+    static String ALL_RECIPES="All_Recipes";
+    static String SELECTED_RECIPES="Selected_Recipes";
+    static String SELECTED_STEPS="Selected_Steps";
+    static String SELECTED_INDEX="Selected_Index";
+    static String STACK_RECIPE_DETAIL="STACK_RECIPE_DETAIL";
+    static String STACK_RECIPE_STEP_DETAIL="STACK_RECIPE_STEP_DETAIL";
+
+
+
     //private boolean isTwoPane = false;
 
     RecyclerView mIngRecyclerView;
@@ -58,11 +71,28 @@ public class RecipeDetailActivity extends AppCompatActivity
         mIngLayoutManager = new LinearLayoutManager(this);
         mIngRecyclerView.setLayoutManager(mIngLayoutManager);
 
+        ArrayList<Steps> listSteps = currentRecipe.getSteps();
+        Bundle selectedRecipeBundle = new Bundle();
+        selectedRecipeBundle.putParcelableArrayList("ingSteps", listSteps);
+
+        RecipeDetailFragment fragment = new RecipeDetailFragment();
+        fragment.setArguments(selectedRecipeBundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_DETAIL)
+                .commit();
+
+
+
+    }
+
+    @Override
+    public void onStepClick() {
 
     }
 
 
-        //determinePaneLayout();
+    //determinePaneLayout();
 
 
     /*private void determinePaneLayout() {

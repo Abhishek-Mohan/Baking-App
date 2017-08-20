@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +17,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import adapters.RecipeStepsAdapter;
 import fastrackm.nanodegree.udacity.abhis.yumrecipes.R;
 import models.Recipe;
+import models.Steps;
 
 /**
  * Created by abhis on 8/17/2017.
@@ -23,55 +28,43 @@ import models.Recipe;
 
 public class RecipeDetailFragment extends Fragment
 {
-    private ArrayAdapter<Recipe> adapterItems;
-    private ListView lvItems;
+    private String TAG = RecipeDetailFragment.class.getName();
+    ArrayList<Steps> recipeSteps;
+    String recipeName;
 
-    private OnItemSelectedListener listener;
+    RecyclerView mRecyclerView;
 
-    public interface OnItemSelectedListener {
-        public void onItemSelected(Recipe i);
+
+    public RecipeDetailFragment()
+    {
+
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-      /*  // Create arraylist from item fixtures
-        ArrayList<Recipe> items = Recipe.getItems();
-        adapterItems = new ArrayAdapter<Recipe>(getActivity(),
-                android.R.layout.simple_list_item_activated_1, items);*/
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        recipeSteps = new ArrayList<>();
+
+        recipeSteps = getArguments().getParcelableArrayList("ingSteps");
+
+        Log.d(TAG, recipeSteps.get(0).getShortDescription());
+
+        View rootView = inflater.inflate(R.layout.recipe_detail_fragment_list, container, false);
+
+        mRecyclerView = rootView.findViewById(R.id.recipe_steps_recycler);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter((RecipeDetailActivity)getActivity(), recipeSteps, getContext());
+        mRecyclerView.setAdapter(mRecipeStepAdapter);
+        //mRecipeStepAdapter.setMasterRecipeData(recipeSteps, getContext());
+
+
+        return rootView;
+
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate view
-        View view = inflater.inflate(R.layout.recipe_detail_fragment_list, container,
-                false);
-        // Bind adapter to ListView
-        lvItems = (ListView) view.findViewById(R.id.lvItems);
-        lvItems.setAdapter(adapterItems);
-        lvItems.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View item, int position,
-                                    long rowId) {
-                // Retrieve item based on position
-                //Item i = adapterItems.getItem(position);
-                // Fire selected event for item
-                //listener.onItemSelected(i);
-            }
-        });
-        return view;
-    }
 
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
-    public void setActivateOnItemClick(boolean activateOnItemClick) {
-        // When setting CHOICE_MODE_SINGLE, ListView will automatically
-        // give items the 'activated' state when touched.
-        lvItems.setChoiceMode(
-                activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
-                        : ListView.CHOICE_MODE_NONE);
-    }
+
+
 }
