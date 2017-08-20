@@ -61,7 +61,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         Toast.makeText(this, currentRecipe.getName(), Toast.LENGTH_SHORT).show();
         //Log.d(TAG, String.valueOf(currentRecipe.getId()));
 
-        ArrayList<Ingredients> list = currentRecipe.getIngredients();
+     /*   ArrayList<Ingredients> list = currentRecipe.getIngredients();
 
         mIngRecyclerView = findViewById(R.id.rvIngredients);
 
@@ -69,7 +69,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         mIngRecyclerView.setAdapter(ingredientsAdapter);
 
         mIngLayoutManager = new LinearLayoutManager(this);
-        mIngRecyclerView.setLayoutManager(mIngLayoutManager);
+        mIngRecyclerView.setLayoutManager(mIngLayoutManager);*/
 
         ArrayList<Steps> listSteps = currentRecipe.getSteps();
         Bundle selectedRecipeBundle = new Bundle();
@@ -79,7 +79,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         fragment.setArguments(selectedRecipeBundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_DETAIL)
+                .replace(R.id.frameLayout, fragment)
                 .commit();
 
 

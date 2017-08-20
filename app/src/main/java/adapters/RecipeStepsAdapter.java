@@ -19,6 +19,7 @@ import models.Steps;
 
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.ViewHolder>
 {
+    private String TAG = RecipeStepsAdapter.class.getName();
     private ArrayList<Steps> listSteps;
     private StepItemClickListener onClickHandler;
     private Context mContext;
@@ -52,18 +53,23 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, parent, false);
 
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
+
     }
 
     @Override
-    public void onBindViewHolder(RecipeStepsAdapter.ViewHolder holder, int position) {
-        holder.shortDescription.setText(listSteps.get(position).getId() + ". " + listSteps.get(position).getShortDescription());
+    public void onBindViewHolder(RecipeStepsAdapter.ViewHolder holder, int position)
+    {
+        holder.shortDescription.setText("hi");
+        //holder.shortDescription.setText(listSteps.get(position).getId() + ". " + listSteps.get(position).getShortDescription());
         Log.d("RecipeSTepsAdapter", listSteps.get(position).getShortDescription());
 
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return 0;
     }
 
@@ -71,7 +77,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     {
         TextView shortDescription;
 
-        public ViewHolder(View itemView)
+        ViewHolder(View itemView)
         {
             super(itemView);
             shortDescription = itemView.findViewById(R.id.shortDescription);
