@@ -99,7 +99,35 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     }
 
     @Override
-    public void onStepClick() {
+    public void onStepClick(ArrayList<Steps> steps, int position)
+    {
+        Log.d(TAG, "does it get to this method?");
+        final RecipeStepFragment fragment = new RecipeStepFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        //getSupportActionBar().setTitle(recipeName);
+
+        Bundle stepBundle = new Bundle();
+        stepBundle.putParcelableArrayList("SELECTED_STEPS",steps);
+        stepBundle.putInt("SELECTED_INDEX",position);
+        stepBundle.putString("Title","Nutella");
+        fragment.setArguments(stepBundle);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                .commit();
+
+       /* if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                    .commit();
+
+        }
+        else {*/
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                    .commit();
+        //}
 
     }
 

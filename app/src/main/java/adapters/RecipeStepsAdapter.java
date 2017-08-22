@@ -26,7 +26,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     public interface StepItemClickListener
     {
-        void onStepClick();
+        void onStepClick(ArrayList<Steps> steps, int position);
     }
 
     public RecipeStepsAdapter(StepItemClickListener clickListener, ArrayList<Steps> steps, Context context)
@@ -87,10 +87,15 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
             super(itemView);
             mShortDescription = itemView.findViewById(R.id.shortDescription);
 
+            itemView.setOnClickListener(this);
+
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View view)
+        {
+            int recipeStepPosition = getAdapterPosition();
+            onClickHandler.onStepClick(listSteps, recipeStepPosition);
 
         }
     }
