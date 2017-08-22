@@ -86,7 +86,7 @@ public class RecipeStepFragment extends Fragment
         mTextView.setVisibility(View.VISIBLE);
 
         simpleExoPlayerView = rootView.findViewById(R.id.playerView);
-        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+        //simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
 
         String videoURL = recipeSteps.get(recipeStepListIndex).getVideoURL();
 
