@@ -61,9 +61,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         Recipe currentRecipe = currentRecipeBundle.getParcelable("RecipeItem");
         getSupportActionBar().setTitle(currentRecipe.getName());
 
-        //Toast.makeText(this, currentRecipe.getName(), Toast.LENGTH_SHORT).show();
-        //Log.d(TAG, String.valueOf(currentRecipe.getId()));
-
         ArrayList<Ingredients> list = currentRecipe.getIngredients();
 
         mIngRecyclerView = findViewById(R.id.rvIngredients);
@@ -102,7 +99,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     @Override
     public void onStepClick(ArrayList<Steps> steps, int position)
     {
-        //Log.d(TAG, "does it get to this method?");
+
         final RecipeStepFragment fragment = new RecipeStepFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
