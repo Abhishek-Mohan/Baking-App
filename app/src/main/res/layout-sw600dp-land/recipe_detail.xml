@@ -10,35 +10,33 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvIngredients"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_below="@+id/include"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include" />
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rvIngredients"
+        android:scaleType="centerInside" />
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="250dp"
-            android:scaleType="centerInside"
-            android:layout_height="match_parent" >
 
-        </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fragment_container2"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/include"
+        android:layout_toRightOf="@+id/rvIngredients"
+        android:layout_toEndOf="@+id/rvIngredients" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container2"
-            android:scaleType="centerInside"
-            android:layout_margin="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="25dp" />
-
-    </LinearLayout>
 
 </RelativeLayout>

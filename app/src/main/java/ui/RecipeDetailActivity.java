@@ -135,10 +135,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         stepBundle.putString("Title","Nutella");
         fragment.setArguments(stepBundle);
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
-                .commit();
-
         if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
