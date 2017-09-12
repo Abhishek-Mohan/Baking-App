@@ -45,7 +45,8 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="previous"
+            android:text="Previous"
+            android:textColor="#FFFFFF"
             android:backgroundTintMode="src_over"
             android:background="@color/colorPrimary"/>
 
@@ -54,7 +55,8 @@
             android:padding="40dp"
             android:layout_margin="10dp"
             android:layout_width="70dp"
-            android:text="next"
+            android:text="Next"
+            android:textColor="#FFFFFF"
             android:layout_height="wrap_content"
             android:backgroundTintMode="src_over"
             android:background="@color/colorPrimary" />

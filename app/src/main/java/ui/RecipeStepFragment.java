@@ -36,6 +36,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fastrackm.nanodegree.udacity.abhis.yumrecipes.R;
 import models.Steps;
@@ -64,9 +65,11 @@ public class RecipeStepFragment extends Fragment
 
     }
 
-    /*public interface ListItemClickListener {
-        void onListItemClick(List<Step> allSteps,int Index,String recipeName);
-    }*/
+    private ListItemClickListener itemClickListener;
+
+    public interface ListItemClickListener {
+        void onListItemClick(List<Steps> allSteps, int Index, String recipeName);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -77,6 +80,9 @@ public class RecipeStepFragment extends Fragment
 
         bandwidthMeter = new DefaultBandwidthMeter();
 
+
+        itemClickListener =(RecipeDetailActivity)getActivity();
+
         recipeSteps = getArguments().getParcelableArrayList("SELECTED_STEPS");
         recipeStepListIndex = getArguments().getInt("SELECTED_INDEX");
         recipeName = getArguments().getString("Title");
@@ -86,7 +92,7 @@ public class RecipeStepFragment extends Fragment
         mTextView.setVisibility(View.VISIBLE);
 
         simpleExoPlayerView = rootView.findViewById(R.id.playerView);
-        //simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
 
         String videoURL = recipeSteps.get(recipeStepListIndex).getVideoURL();
 
@@ -98,7 +104,7 @@ public class RecipeStepFragment extends Fragment
         String imageUrl = recipeSteps.get(recipeStepListIndex).getThumbnailURL();
         if (!imageUrl.equals("")) {
             Uri builtUri = Uri.parse(imageUrl).buildUpon().build();
-            ImageView thumbImage = (ImageView) rootView.findViewById(R.id.thumbImage);
+            ImageView thumbImage = rootView.findViewById(R.id.thumbImage);
             Picasso.with(getContext()).load(builtUri).into(thumbImage);
         }
 
@@ -131,7 +137,7 @@ public class RecipeStepFragment extends Fragment
                     if (simpleExoPlayer!=null){
                         simpleExoPlayer.stop();
                     }
-                    //itemClickListener.onListItemClick(steps,steps.get(selectedIndex).getId() - 1,recipeName);
+                    itemClickListener.onListItemClick(recipeSteps,recipeSteps.get(recipeStepListIndex).getId() - 1,recipeName);
                 }
                 else {
                     Toast.makeText(getActivity(),"You already are in the First step of the recipe", Toast.LENGTH_SHORT).show();
@@ -147,7 +153,7 @@ public class RecipeStepFragment extends Fragment
                     if (simpleExoPlayer!=null){
                         simpleExoPlayer.stop();
                     }
-                    //itemClickListener.onListItemClick(steps,steps.get(selectedIndex).getId() + 1,recipeName);
+                    itemClickListener.onListItemClick(recipeSteps,recipeSteps.get(recipeStepListIndex).getId() + 1,recipeName);
                 }
                 else {
                     Toast.makeText(getContext(),"You already are in the Last step of the recipe", Toast.LENGTH_SHORT).show();

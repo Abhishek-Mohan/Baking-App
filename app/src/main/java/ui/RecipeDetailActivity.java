@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import adapters.IngredientsAdapter;
 import adapters.RecipeStepsAdapter;
@@ -24,7 +25,7 @@ import models.Steps;
  * Created by abhis on 8/17/2017.
  */
 
-public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepsAdapter.StepItemClickListener
+public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepsAdapter.StepItemClickListener, RecipeStepFragment.ListItemClickListener
 {
     private String TAG = RecipeDetailActivity.class.getName();
 
@@ -101,7 +102,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     @Override
     public void onStepClick(ArrayList<Steps> steps, int position)
     {
-        Log.d(TAG, "does it get to this method?");
+        //Log.d(TAG, "does it get to this method?");
         final RecipeStepFragment fragment = new RecipeStepFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -129,6 +130,32 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
                     .commit();
         //}
 
+    }
+
+    @Override
+    public void onListItemClick(List<Steps> allSteps, int Index, String recipeName) {
+        final RecipeStepFragment fragment = new RecipeStepFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        getSupportActionBar().setTitle(recipeName);
+
+        Bundle stepBundle = new Bundle();
+        stepBundle.putParcelableArrayList("SELECTED_STEPS",(ArrayList<Steps>) allSteps);
+        stepBundle.putInt("SELECTED_INDEX",Index);
+        stepBundle.putString("Title",recipeName);
+        fragment.setArguments(stepBundle);
+
+   /*     if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                    .commit();
+
+        }
+        else {*/
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                    .commit();
+        //}
     }
 
 
