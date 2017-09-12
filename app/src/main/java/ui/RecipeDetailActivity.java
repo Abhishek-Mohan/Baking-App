@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -41,9 +42,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     //private boolean isTwoPane = false;
 
     RecyclerView mIngRecyclerView;
-    RecyclerView mRecyclerView;
     LinearLayoutManager mIngLayoutManager;
-    LinearLayoutManager mStepLayoutManager;
 
 
     @Override
@@ -55,6 +54,33 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         setSupportActionBar(myToolbar);
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                if (findViewById(R.id.fragment_container2)==null) {
+                    if (fm.getBackStackEntryCount() > 1) {
+                        //go back to "Recipe Detail" screen
+                        fm.popBackStack(STACK_RECIPE_DETAIL, 0);
+                    } else if (fm.getBackStackEntryCount() > 0) {
+                        //go back to "Recipe" screen
+                        finish();
+
+                    }
+
+
+                }
+                else {
+
+                    //go back to "Recipe" screen
+                    finish();
+
+                }
+
+            }
+        });
+
 
         Bundle currentRecipeBundle = getIntent().getExtras();
 
@@ -71,18 +97,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         mIngLayoutManager = new LinearLayoutManager(this);
         mIngRecyclerView.setLayoutManager(mIngLayoutManager);
 
-      //ArrayList<Steps> listSteps = currentRecipe.getSteps();
-        /*Toast.makeText(this, listSteps.get(0).getShortDescription(), Toast.LENGTH_SHORT).show();
-
-        mRecyclerView = findViewById(R.id.recipe_steps_recycler);
-        RecipeStepsAdapter mRecipeStepAdapter = new RecipeStepsAdapter((RecipeDetailActivity)getActivty(), listSteps, this);
-        mRecyclerView.setAdapter(mRecipeStepAdapter);
-
-        mStepLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mStepLayoutManager);*/
-
-
-
         Bundle selectedRecipeBundle = new Bundle();
         selectedRecipeBundle.putParcelable("recipe", currentRecipe);
 
@@ -92,6 +106,18 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         fragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_DETAIL)
                 .commit();
+
+        if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+
+            final RecipeStepFragment fragment2 = new RecipeStepFragment();
+            selectedRecipeBundle.putParcelableArrayList("SELECTED_STEPS", currentRecipe.getSteps());
+            selectedRecipeBundle.putInt("SELECTED_INDEX", 0);
+            fragment2.setArguments(selectedRecipeBundle);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container2, fragment2).addToBackStack(STACK_RECIPE_STEP_DETAIL)
+                    .commit();
+
+        }
 
 
     }
@@ -103,8 +129,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         final RecipeStepFragment fragment = new RecipeStepFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        //getSupportActionBar().setTitle(recipeName);
-
         Bundle stepBundle = new Bundle();
         stepBundle.putParcelableArrayList("SELECTED_STEPS",steps);
         stepBundle.putInt("SELECTED_INDEX",position);
@@ -115,17 +139,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
                 .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                 .commit();
 
-       /* if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+        if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
 
         }
-        else {*/
+        else {
             fragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
-        //}
+        }
 
     }
 
@@ -142,36 +166,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         stepBundle.putString("Title",recipeName);
         fragment.setArguments(stepBundle);
 
-   /*     if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
+        if (findViewById(R.id.recipe_linear_layout).getTag()!=null && findViewById(R.id.recipe_linear_layout).getTag().equals("tablet-land")) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container2, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
 
         }
-        else {*/
+        else {
             fragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, fragment).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                     .commit();
-        //}
+        }
     }
 
-
-    //determinePaneLayout();
-
-
-    /*private void determinePaneLayout() {
-        FrameLayout fragmentItemDetail = (FrameLayout) findViewById(R.id.flDetailContainer);
-        if (fragmentItemDetail != null) {
-            isTwoPane = true;
-            RecipeDetailFragment fragmentItemsList =
-                    (RecipeDetailFragment) getSupportFragmentManager().findFragmentById(R.id.recipe_fragment_body);
-            //fragmentItemsList.setActivateOnItemClick(true);
-        }
-    }*/
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.items, menu);
-        return true;
-    }*/
 }

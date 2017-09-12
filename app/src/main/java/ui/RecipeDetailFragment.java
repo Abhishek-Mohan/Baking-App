@@ -47,12 +47,10 @@ public class RecipeDetailFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //recipeSteps = new ArrayList<>();
+
 
         currentRecipe = getArguments().getParcelable("recipe");
         recipeSteps = currentRecipe.getSteps();
-
-        //Log.d(TAG, recipeSteps.get(0).getShortDescription());
 
         View rootView = inflater.inflate(R.layout.recipe_detail_fragment_list, container, false);
 
